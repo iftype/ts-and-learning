@@ -14,10 +14,24 @@
 - Union 타입은 정의뿐 아니라 사용처(함수 파라미터 등)도 함께 바꿔야 함
 - `in` 연산자로 타입 좁히기 (narrowing)
 
-## 최종 코드 요약
+## Before
+```ts
+export type Person = unknown;
+
+export const persons: User[] /* <- Person[] */ = [...];
+
+export function logPerson(user: User) {
+  console.log(` - ${user.name}, ${user.age}`);
+}
+
+persons.forEach(logPerson);
+```
+
+## After
 ```ts
 export type Person = User | Admin;
-export const persons: Person[] = [...];
+
+export const persons: Person[] /* <- Person[] */ = [...];
 
 export function logPerson(user: Person) {
   if ("occupation" in user) {
