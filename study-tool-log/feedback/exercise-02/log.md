@@ -44,7 +44,7 @@ export function logPerson(user: Person) {
 persons.forEach(logPerson);
 ```
 
-## 시지프 피드백
+## 시지프 땡스
 - Person 타입 정의는 바로 잡았으나 logPerson 파라미터 수정을 처음에 놓침
 - Union 타입 안에서 특정 필드 접근 시 narrowing 필요하다는 것을 직접 부딪혀서 익힘
 - `in` 연산자로 narrowing하는 패턴 습득

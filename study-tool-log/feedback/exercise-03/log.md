@@ -33,5 +33,5 @@ export function logPerson(person: Person) {
 }
 ```
 
-## 시지프 피드백
+## 시지프 땡스
 [작성 예정]
