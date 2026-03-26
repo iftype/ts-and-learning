@@ -6,7 +6,7 @@
 
 ![sisyphe](./assets/sisyphe.png)
 
-루틴 가이드 slash command + 시지프 페르소나 (`/sisyphe-hello`, `/sisyphe-preview`, `/sisyphe-advice`, `/sisyphe-review`)
+루틴 가이드 slash command + 시지프 페르소나 (`/sisyphe-hello`, `/sisyphe-preview`, `/sisyphe-advice`, `/sisyphe-review`, `/sisyphe-thanks`, `/sisyphe-stop`)
 
 ## **도구 유형**
 
@@ -29,9 +29,10 @@ Claude Code의 slash command 기능으로 단계별 프롬프트를 고정.
 **전역 커맨드** (`~/.claude/commands/`)
 
 - `/sisyphe-hello` — 시지프 페르소나 활성화. 세션 시작 시 1회 실행.
-- `/sisyphe-preview` — 문제 풀기 전 준비 동작. 시지프가 킹핀 질문을 던짐.
+- `/sisyphe-preview` — 문제 풀기 전 준비 동작. 어떤 TS 개념이 필요한지, 아는 것과 모르는 것을 나눠보도록 질문.
 - `/sisyphe-advice` — 막힌 상황을 붙여넣으면 시지프가 상황 판단 후 최소 힌트 제공. 키워드조차 모르면 ② 키워드만, 방향을 모르면 ③ 방향만. 로그 자동 체크.
-- `/sisyphe-review` — 풀이 완료 후: tsc 타입체크 + `study-tool-log` 생성 + 시지프 피드백.
+- `/sisyphe-review` — 풀이 완료 후: tsc 타입체크 + `study-tool-log` 생성 + 시지프 피드백 (3단계: 킹핀 → i+1 → 실무).
+- `/sisyphe-thanks` — 리뷰 후 오답노트 생성. Q&A 테이블 형식으로 `note.md` 저장.
 - `/sisyphe-stop` — 시지프 페르소나 종료.
 
 `/step2`, `/step3`, `/step4` 는 `/sisyphe-advice`, `/sisyphe-review` 로 통합되어 제거됨.
@@ -93,10 +94,14 @@ Claude Code의 slash command 기능으로 단계별 프롬프트를 고정.
 ```
 /sisyphe-hello
     ↓
-/sisyphe-preview [문제 파일]   ← 시작 전, 킹핀 질문
+/sisyphe-preview [문제 파일]   ← 시작 전, 개념 확인 질문
     ↓ 직접 풀기 (① 루틴)
     ↓ 막히면
 /sisyphe-advice exercise-NN [막힌 상황]  ← ②/③ 자동 판단, 로그 체크
     ↓ 완성
 /sisyphe-review exercise-NN [풀이]  ← tsc + 로그 생성 + 시지프 피드백
+    ↓ 오답 있으면
+/sisyphe-thanks exercise-NN  ← 오답노트 생성 (note.md)
+    ↓
+/sisyphe-stop
 ```
